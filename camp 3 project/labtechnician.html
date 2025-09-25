@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lab Technician Dashboard</title>
+  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/labtechnician.css"/>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">Clinic Management</div>
+    <div class="user" id="userInfo"></div>
+    <div class="actions">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Lab Technician Dashboard</h2>
+
+    <div class="card">
+      <h3>Lab Requests</h3>
+      <table id="labTable">
+        <thead>
+          <tr>
+            <th>Req ID</th><th>Patient ID</th><th>Test</th><th>Requested On</th><th>Status</th><th>Result</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="muted">Enter results and update status to Completed or Rejected.</p>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/labtechnician.js"></script>
+</body>
+</html>

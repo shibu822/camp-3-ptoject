@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor Dashboard</title>
+  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/doctor.css"/>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">Clinic Management</div>
+    <input id="globalSearch" class="search" placeholder="Search appointments or visits"/>
+    <div class="user" id="userInfo"></div>
+    <div class="actions">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Doctor Dashboard</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Today's Appointments</h3>
+        <table id="apptsTable">
+          <thead>
+            <tr>
+              <th>ID</th><th>Patient ID</th><th>Doctor</th><th>DateTime</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p class="muted">Click "Open" to work on a patient record.</p>
+      </div>
+
+      <div class="card">
+        <h3>Patient Record</h3>
+        <div id="patientHeader" class="muted">No patient selected.</div>
+        <form id="visitForm">
+          <label>Weight (kg)</label>
+          <input id="v_weight" type="number" min="0" step="0.1" />
+
+          <label>Height (cm)</label>
+          <input id="v_height" type="number" min="0" step="0.1" />
+
+          <label>Symptoms</label>
+          <textarea id="v_symptoms" placeholder="Describe symptoms..."></textarea>
+
+          <label>Diagnosis</label>
+          <textarea id="v_diagnosis" placeholder="Enter diagnosis..."></textarea>
+
+          <label>Prescriptions (comma-separated)</label>
+          <input id="v_prescriptions" placeholder="e.g., Paracetamol 500mg, Amoxicillin 250mg" />
+
+          <label>Request Lab Tests</label>
+          <select id="v_labtests" multiple></select>
+          <small class="muted">Hold Ctrl/Cmd to select multiple</small>
+
+          <button class="primary" type="submit">Save Visit</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Visit History</h3>
+        <table id="visitsTable">
+          <thead>
+            <tr>
+              <th>Date</th><th>Weight</th><th>Height</th><th>BMI</th><th>Symptoms</th><th>Diagnosis</th><th>Prescriptions</th><th>Lab Tests</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/doctor.js"></script>
+</body>
+</html>

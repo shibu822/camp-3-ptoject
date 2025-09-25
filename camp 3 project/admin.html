@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">Clinic Management</div>
+    <input id="globalSearch" class="search" placeholder="Search (patients, staff, depts)"/>
+    <div class="user" id="userInfo"></div>
+    <div class="actions"><button id="logoutBtn">Logout</button></div>
+  </div>
+
+  <div class="container">
+    <h2>Admin Dashboard</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Add / Update Department (Doctors only)</h3>
+        <form id="deptForm">
+          <label>Department Name</label><input id="d_name" placeholder="e.g., Cardiology" required />
+          <button type="submit">Save Department</button>
+        </form>
+        <h4>Departments</h4>
+        <table id="deptTable"><thead><tr><th>Name</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      </div>
+
+      <div class="card">
+        <h3>Add / Update Staff (with login)</h3>
+        <form id="staffForm">
+          <label>Staff ID</label><input id="s_id" placeholder="e.g., D001" required />
+          <label>Name</label><input id="s_name" placeholder="Full name" required />
+          <label>Role</label>
+          <select id="s_role" required>
+            <option value="">Select role</option>
+            <option value="doctor">Doctor</option>
+            <option value="receptionist">Receptionist</option>
+            <option value="labtechnician">Lab Technician</option>
+            <option value="pharmacist">Pharmacist</option>
+          </select>
+          <div id="deptWrap" style="display:none;">
+            <label>Department</label><select id="s_dept"></select>
+          </div>
+          <label>Username</label><input id="s_username" placeholder="login username" required />
+          <label>Password</label><input id="s_password" type="password" placeholder="login password" required />
+          <button type="submit">Save Staff</button>
+        </form>
+
+        <h4>Staff</h4>
+        <table id="staffTable">
+          <thead>
+            <tr><th>ID</th><th>Name</th><th>Role</th><th>Department</th><th>Username</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Pricing Settings</h3>
+        <form id="settingsForm">
+          <label>Doctor Fee (per visit)</label>
+          <input id="set_doctorFee" type="number" min="0" step="0.01" placeholder="e.g., 300" required />
+          <button type="submit">Save Settings</button>
+        </form>
+
+        <h4>Medicine Catalog</h4>
+        <form id="medForm">
+          <label>Medicine Name</label><input id="med_name" placeholder="e.g., Paracetamol 500mg" required />
+          <label>Price</label><input id="med_price" type="number" min="0" step="0.01" required />
+          <button type="submit">Add / Update Medicine</button>
+        </form>
+        <table id="medTable"><thead><tr><th>Medicine</th><th>Price</th><th>Actions</th></tr></thead><tbody></tbody></table>
+
+        <h4>Lab Tests Catalog (with price)</h4>
+        <form id="labTestForm">
+          <label>Test Name</label><input id="lt_name" required />
+          <label>Price</label><input id="lt_price" type="number" min="0" step="0.01" required />
+          <button type="submit">Add / Update Test</button>
+        </form>
+        <table id="labTestTable"><thead><tr><th>Test</th><th>Price</th><th>Actions</th></tr></thead><tbody></tbody></table>
+      </div>
+
+      <div class="card">
+        <h3>Reports</h3>
+        <div class="stats">
+          <div class="stat"><div>Total Patients</div><div id="statPatients">0</div></div>
+          <div class="stat"><div>Total Appointments</div><div id="statAppts">0</div></div>
+          <div class="stat"><div>Pending Lab Reqs</div><div id="statLab">0</div></div>
+          <div class="stat"><div>Pending Prescriptions</div><div id="statRx">0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

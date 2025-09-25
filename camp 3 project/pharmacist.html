@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pharmacist Dashboard</title>
+  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/pharmacist.css"/>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">Clinic Management</div>
+    <div class="user" id="userInfo"></div>
+    <div class="actions">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Pharmacist Dashboard</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Prescriptions</h3>
+        <table id="rxTable">
+          <thead>
+            <tr>
+              <th>RX ID</th><th>Patient ID</th><th>Item</th><th>Prescribed On</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p class="muted">Mark items as Dispensed when given to patient.</p>
+      </div>
+
+      <div class="card">
+        <h3>Manage Stock (Optional)</h3>
+        <form id="stockForm">
+          <label>Medicine Name</label>
+          <input id="s_name" placeholder="e.g., Paracetamol 500mg" required />
+          <label>Quantity</label>
+          <input id="s_qty" type="number" min="0" placeholder="e.g., 100" required />
+          <button type="submit">Add / Update Stock</button>
+        </form>
+
+        <h4>Stock</h4>
+        <table id="stockTable">
+          <thead>
+            <tr>
+              <th>Medicine</th><th>Qty</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/pharmacist.js"></script>
+</body>
+</html>

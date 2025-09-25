@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clinic Management - Login</title>
+  <link rel="stylesheet" href="css/common.css"/>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f6f8fb; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
+    .card { background:#fff; padding:32px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.08); width: 360px; }
+    h1 { margin:0 0 16px; font-size:22px; }
+    label { display:block; margin:10px 0 6px; font-size:14px; color:#333; }
+    input, select { width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; }
+    button { margin-top:16px; width:100%; padding:12px; background:#2563eb; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+    .error { color:#c0392b; margin-top:10px; font-size:13px; min-height:18px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Clinic Management Login</h1>
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input id="username" autocomplete="username" required />
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required />
+      <label for="role">Role</label>
+      <select id="role" required>
+        <option value="">Select role</option>
+        <option value="admin">Admin</option>
+        <option value="receptionist">Receptionist</option>
+        <option value="doctor">Doctor</option>
+        <option value="labtechnician">Lab Technician</option>
+        <option value="pharmacist">Pharmacist</option>
+      </select>
+      <button type="submit">Login</button>
+      <div class="error" id="errorMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    (function(){
+      try{
+        const raw = sessionStorage.getItem('loggedInUser');
+        if(!raw) return;
+        const user = JSON.parse(raw);
+        const routes = { admin:'admin.html', receptionist:'receptionist.html', doctor:'doctor.html', labtechnician:'labtechnician.html', pharmacist:'pharmacist.html' };
+        const target = routes[user.role];
+        const current = location.pathname.split('/').pop() || 'index.html';
+        if(target && current !== target){ window.location.replace(target); }
+      }catch(e){}
+    })();
+
+    function getUsers(){
+      try {
+        const arr = JSON.parse(localStorage.getItem('users') || '[]');
+        if(Array.isArray(arr) && arr.length) return arr;
+      } catch(e){}
+      return [
+        { username:'admin1', password:'pass123', role:'admin' },
+        { username:'recept1', password:'pass123', role:'receptionist' },
+        { username:'doc1', password:'pass123', role:'doctor' },
+        { username:'lab1', password:'pass123', role:'labtechnician' },
+        { username:'pharma1', password:'pass123', role:'pharmacist' }
+      ];
+    }
+
+    function redirectByRole(role) {
+      const routes = { admin:'admin.html', receptionist:'receptionist.html', doctor:'doctor.html', labtechnician:'labtechnician.html', pharmacist:'pharmacist.html' };
+      const target = routes[role];
+      if(target){ window.location.replace(target); }
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const selectedRole = document.getElementById('role').value;
+      const users = getUsers();
+      const user = users.find(u => u.username === username && u.password === password && u.role === selectedRole);
+      if(user) {
+        sessionStorage.setItem('loggedInUser', JSON.stringify({ username:user.username, role:user.role }));
+        redirectByRole(user.role);
+      } else {
+        document.getElementById('errorMsg').textContent = 'Invalid credentials or role.';
+      }
+    });
+  </script>
+</body>
+</html>
