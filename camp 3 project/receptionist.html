@@ -1,78 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Receptionist Dashboard</title>
-  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
   <link rel="stylesheet" href="css/receptionist.css"/>
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand">Clinic Management</div>
-    <input id="globalSearch" class="search" placeholder="Search patients, appts, invoices"/>
-    <div class="user" id="userInfo"></div>
-    <div class="actions"><button id="logoutBtn">Logout</button></div>
-  </div>
+  <header class="header">
+    <div class="brand"><div class="brand__logo"></div><div class="brand__name">Reception</div></div>
+    <div class="searchbar"><svg class="searchbar__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 21l-4.3-4.3"/></svg><input id="globalSearch" class="input" placeholder="Search patients, appts, invoices"/></div>
+    <div id="userInfo" class="muted"></div>
+    <button id="logoutBtn" class="btn btn--outline">Logout</button>
+  </header>
 
   <div class="container">
-    <h2>Receptionist Dashboard</h2>
-
     <div class="grid">
       <div class="card">
-        <h3>Register / Update Patient</h3>
-        <form id="patientForm">
-          <label>Select Patient ID (to edit)</label>
-          <select id="p_select"><option value="">New Patient</option></select>
-          <label>Patient ID</label><input id="p_id" placeholder="e.g., P001" required />
-          <label>Name</label><input id="p_name" placeholder="Full name" required />
-          <label>Age</label><input id="p_age" type="number" min="0" placeholder="e.g., 32" required />
-          <label>Phone</label><input id="p_phone" placeholder="e.g., 9876543210" required />
-          <label>Address</label><input id="p_address" placeholder="Street, City" required />
-          <button class="primary" type="submit">Save Patient</button>
+        <h3 style="margin-top:0">Register / Update Patient</h3>
+        <form id="patientForm" class="form">
+          <label class="label">Select Patient ID (to edit)</label>
+          <select id="p_select" class="select"><option value="">New Patient</option></select>
+          <label class="label">Patient ID</label><input id="p_id" class="input" placeholder="Auto" readonly/>
+          <label class="label">Name</label><input id="p_name" class="input" placeholder="Full name" required/>
+          <label class="label">Age</label><input id="p_age" class="input" type="number" min="0" placeholder="32" required/>
+          <label class="label">Phone</label><input id="p_phone" class="input" placeholder="9876543210" required/>
+          <label class="label">Address</label><input id="p_address" class="input" placeholder="Street, City" required/>
+          <button class="btn mt-3" type="submit">Save Patient</button>
         </form>
       </div>
 
       <div class="card">
-        <h3>Patients</h3>
-        <table id="patientsTable"><thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Phone</th><th>Address</th><th>Actions</th></tr></thead><tbody></tbody></table>
+        <h3 style="margin-top:0">Patients</h3>
+        <div class="table-wrap">
+          <table id="patientsTable" class="table table--compact">
+            <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Phone</th><th>Address</th><th>Actions</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Book / Update Appointment</h3>
-        <form id="apptForm">
-          <label>Appointment ID</label><input id="a_id" placeholder="e.g., A001" required />
-          <label>Patient ID</label><input id="a_patientId" placeholder="e.g., P001" required />
-          <label>Doctor</label><select id="a_doctor" required></select>
-          <label>Date & Time</label><input id="a_datetime" type="datetime-local" required />
-          <button class="primary" type="submit">Save Appointment</button>
+        <h3 style="margin-top:0">Book / Update Appointment</h3>
+        <form id="apptForm" class="form">
+          <label class="label">Appointment ID</label><input id="a_id" class="input" placeholder="Auto" readonly/>
+          <label class="label">Patient ID</label><input id="a_patientId" class="input" placeholder="P001" required/>
+          <label class="label">Doctor</label><select id="a_doctor" class="select" required></select>
+          <label class="label">Date & Time</label><input id="a_datetime" class="input" type="datetime-local" required/>
+          <button class="btn mt-3" type="submit">Save Appointment</button>
         </form>
       </div>
 
       <div class="card">
-        <h3>Appointments</h3>
-        <table id="apptsTable"><thead><tr><th>ID</th><th>Patient ID</th><th>Doctor</th><th>DateTime</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody></table>
+        <h3 style="margin-top:0">Appointments</h3>
+        <div class="table-wrap">
+          <table id="apptsTable" class="table table--compact">
+            <thead><tr><th>ID</th><th>Patient ID</th><th>Doctor</th><th>DateTime</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Invoice (auto-generated)</h3>
-        <form id="billForm">
-          <label>Invoice ID</label><input id="b_id" placeholder="e.g., INV001" required />
-          <label>Patient ID</label><input id="b_patientId" placeholder="e.g., P001" required />
-          <label>Date</label><input id="b_date" type="date" required />
-          <h4>Items</h4>
-          <div id="itemsList"></div>
-          <div class="mt-12"><strong>Total: </strong><span id="b_total">0.00</span></div>
-          <label class="mt-12">Payment Status</label>
-          <select id="b_status"><option value="Unpaid">Unpaid</option><option value="Paid">Paid</option><option value="Partial">Partial</option></select>
-          <button class="primary mt-12" type="submit">Save Invoice</button>
-          <button class="mt-12" type="button" id="printBtn">Print</button>
+        <h3 style="margin-top:0">Invoice (auto-generated)</h3>
+        <form id="billForm" class="form">
+          <label class="label">Invoice ID</label><input id="b_id" class="input" placeholder="Auto" readonly/>
+          <label class="label">Patient ID</label><input id="b_patientId" class="input" placeholder="P001" required/>
+          <label class="label">Date</label><input id="b_date" class="input" type="date" required/>
+          <h4 class="mt-3">Items</h4>
+          <div id="itemsList" class="mt-2"></div>
+          <div class="mt-3"><strong>Total:</strong> <span id="b_total">0.00</span></div>
+          <label class="label mt-3">Payment Status</label>
+          <select id="b_status" class="select"><option value="Unpaid">Unpaid</option><option value="Paid">Paid</option><option value="Partial">Partial</option></select>
+          <button class="btn mt-3" type="submit">Save Invoice</button>
+          <button class="btn btn--outline mt-3" type="button" id="printBtn">Print</button>
         </form>
       </div>
 
       <div class="card">
-        <h3>Invoices</h3>
-        <table id="billTable"><thead><tr><th>Invoice</th><th>Patient ID</th><th>Date</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody></table>
+        <h3 style="margin-top:0">Invoices</h3>
+        <div class="table-wrap">
+          <table id="billTable" class="table table--compact">
+            <thead><tr><th>Invoice</th><th>Patient ID</th><th>Date</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

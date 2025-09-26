@@ -1,59 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pharmacist Dashboard</title>
-  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
   <link rel="stylesheet" href="css/pharmacist.css"/>
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand">Clinic Management</div>
-    <div class="user" id="userInfo"></div>
-    <div class="actions">
-      <button id="logoutBtn">Logout</button>
-    </div>
-  </div>
+  <header class="header">
+    <div class="brand"><div class="brand__logo"></div><div class="brand__name">Pharmacy</div></div>
+    <div></div>
+    <div id="userInfo" class="muted"></div>
+    <button id="logoutBtn" class="btn btn--outline">Logout</button>
+  </header>
 
   <div class="container">
-    <h2>Pharmacist Dashboard</h2>
-
     <div class="grid">
       <div class="card">
-        <h3>Prescriptions</h3>
-        <table id="rxTable">
-          <thead>
-            <tr>
-              <th>RX ID</th><th>Patient ID</th><th>Item</th><th>Prescribed On</th><th>Status</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <p class="muted">Mark items as Dispensed when given to patient.</p>
+        <h3 style="margin-top:0">Prescriptions</h3>
+        <div class="table-wrap">
+          <table id="rxTable" class="table table--compact">
+            <thead><tr><th>RX ID</th><th>Patient ID</th><th>Item</th><th>Prescribed On</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Manage Stock (Optional)</h3>
-        <form id="stockForm">
-          <label>Medicine Name</label>
-          <input id="s_name" placeholder="e.g., Paracetamol 500mg" required />
-          <label>Quantity</label>
-          <input id="s_qty" type="number" min="0" placeholder="e.g., 100" required />
-          <button type="submit">Add / Update Stock</button>
+        <h3 style="margin-top:0">Manage Stock</h3>
+        <form id="stockForm" class="form">
+          <label class="label">Medicine Name</label><input id="s_name" class="input" placeholder="Paracetamol 500mg" required/>
+          <label class="label">Quantity</label><input id="s_qty" class="input" type="number" min="0" placeholder="100" required/>
+          <button class="btn mt-3" type="submit">Add / Update Stock</button>
         </form>
-
-        <h4>Stock</h4>
-        <table id="stockTable">
-          <thead>
-            <tr>
-              <th>Medicine</th><th>Qty</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div class="table-wrap mt-3">
+          <table id="stockTable" class="table table--compact">
+            <thead><tr><th>Medicine</th><th>Qty</th><th>Actions</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
       </div>
-
     </div>
   </div>
 

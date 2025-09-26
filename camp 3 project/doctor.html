@@ -1,78 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Doctor Dashboard</title>
-  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
   <link rel="stylesheet" href="css/doctor.css"/>
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand">Clinic Management</div>
-    <input id="globalSearch" class="search" placeholder="Search appointments or visits"/>
-    <div class="user" id="userInfo"></div>
-    <div class="actions">
-      <button id="logoutBtn">Logout</button>
-    </div>
-  </div>
+  <header class="header">
+    <div class="brand"><div class="brand__logo"></div><div class="brand__name">Doctor</div></div>
+    <div class="searchbar"><svg class="searchbar__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 21l-4.3-4.3"/></svg><input id="globalSearch" class="input" placeholder="Search appointments or visits"/></div>
+    <div id="userInfo" class="muted"></div>
+    <button id="logoutBtn" class="btn btn--outline">Logout</button>
+  </header>
 
   <div class="container">
-    <h2>Doctor Dashboard</h2>
-
     <div class="grid">
       <div class="card">
-        <h3>Today's Appointments</h3>
-        <table id="apptsTable">
-          <thead>
-            <tr>
-              <th>ID</th><th>Patient ID</th><th>Doctor</th><th>DateTime</th><th>Status</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <h3 style="margin-top:0">Today's Appointments</h3>
+        <div class="table-wrap">
+          <table id="apptsTable" class="table table--compact">
+            <thead><tr><th>ID</th><th>Patient ID</th><th>Doctor</th><th>DateTime</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
         <p class="muted">Click "Open" to work on a patient record.</p>
       </div>
 
       <div class="card">
-        <h3>Patient Record</h3>
+        <h3 style="margin-top:0">Patient Record</h3>
         <div id="patientHeader" class="muted">No patient selected.</div>
-        <form id="visitForm">
-          <label>Weight (kg)</label>
-          <input id="v_weight" type="number" min="0" step="0.1" />
-
-          <label>Height (cm)</label>
-          <input id="v_height" type="number" min="0" step="0.1" />
-
-          <label>Symptoms</label>
-          <textarea id="v_symptoms" placeholder="Describe symptoms..."></textarea>
-
-          <label>Diagnosis</label>
-          <textarea id="v_diagnosis" placeholder="Enter diagnosis..."></textarea>
-
-          <label>Prescriptions (comma-separated)</label>
-          <input id="v_prescriptions" placeholder="e.g., Paracetamol 500mg, Amoxicillin 250mg" />
-
-          <label>Request Lab Tests</label>
-          <select id="v_labtests" multiple></select>
-          <small class="muted">Hold Ctrl/Cmd to select multiple</small>
-
-          <button class="primary" type="submit">Save Visit</button>
-        </form>
+        <div id="visitWrap" class="mt-4 hidden">
+          <form id="visitForm" class="form">
+            <label class="label">Weight (kg)</label><input id="v_weight" class="input" type="number" min="0" step="0.1"/>
+            <label class="label">Height (cm)</label><input id="v_height" class="input" type="number" min="0" step="0.1"/>
+            <label class="label">Symptoms</label><textarea id="v_symptoms" class="textarea" placeholder="Describe symptoms..."></textarea>
+            <label class="label">Diagnosis</label><textarea id="v_diagnosis" class="textarea" placeholder="Enter diagnosis..."></textarea>
+            <label class="label">Prescriptions (comma-separated)</label><input id="v_prescriptions" class="input" placeholder="Paracetamol 500mg, Amoxicillin 250mg"/>
+            <label class="label">Request Lab Tests</label>
+            <select id="v_labtests" class="select" multiple></select>
+            <small class="muted">Hold Ctrl/Cmd to select multiple</small>
+            <button class="btn mt-3" type="submit">Save Visit</button>
+          </form>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Visit History</h3>
-        <table id="visitsTable">
-          <thead>
-            <tr>
-              <th>Date</th><th>Weight</th><th>Height</th><th>BMI</th><th>Symptoms</th><th>Diagnosis</th><th>Prescriptions</th><th>Lab Tests</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <h3 style="margin-top:0">Visit History</h3>
+        <div class="table-wrap">
+          <table id="visitsTable" class="table table--compact">
+            <thead><tr><th>Date</th><th>Weight</th><th>Height</th><th>BMI</th><th>Symptoms</th><th>Diagnosis</th><th>Prescriptions</th><th>Lab Tests</th></tr></thead><tbody></tbody>
+          </table>
+        </div>
       </div>
-
     </div>
   </div>
 

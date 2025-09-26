@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clinic Management - Login</title>
-  <link rel="stylesheet" href="css/common.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
   <style>
-    body { font-family: Arial, sans-serif; background:#f6f8fb; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
-    .card { background:#fff; padding:32px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.08); width: 360px; }
-    h1 { margin:0 0 16px; font-size:22px; }
-    label { display:block; margin:10px 0 6px; font-size:14px; color:#333; }
-    input, select { width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; }
-    button { margin-top:16px; width:100%; padding:12px; background:#2563eb; color:#fff; border:none; border-radius:8px; cursor:pointer; }
-    .error { color:#c0392b; margin-top:10px; font-size:13px; min-height:18px; }
+    .auth-wrap { display:grid; place-items:center; min-height:calc(100dvh - 64px); }
+    .auth-card { width:min(420px, 100%); }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Clinic Management Login</h1>
-    <form id="loginForm">
-      <label for="username">Username</label>
-      <input id="username" autocomplete="username" required />
-      <label for="password">Password</label>
-      <input id="password" type="password" autocomplete="current-password" required />
-      <label for="role">Role</label>
-      <select id="role" required>
-        <option value="">Select role</option>
-        <option value="admin">Admin</option>
-        <option value="receptionist">Receptionist</option>
-        <option value="doctor">Doctor</option>
-        <option value="labtechnician">Lab Technician</option>
-        <option value="pharmacist">Pharmacist</option>
-      </select>
-      <button type="submit">Login</button>
-      <div class="error" id="errorMsg"></div>
-    </form>
+  <header class="header">
+    <div class="brand"><div class="brand__logo"></div><div class="brand__name">Clinic Manager</div></div>
+    <div></div><div></div>
+  </header>
+
+  <div class="container auth-wrap">
+    <div class="card auth-card">
+      <h2 style="margin-top:0">Welcome</h2>
+      <p class="muted">Sign in with the credentials created in Admin → Staff.</p>
+      <form id="loginForm" class="form mt-4">
+        <label class="label" for="username">Username</label>
+        <input id="username" class="input" autocomplete="username" required/>
+        <label class="label" for="password">Password</label>
+        <input id="password" class="input" type="password" autocomplete="current-password" required/>
+        <label class="label" for="role">Role</label>
+        <select id="role" class="select" required>
+          <option value="">Select role</option>
+          <option value="admin">Admin</option>
+          <option value="receptionist">Receptionist</option>
+          <option value="doctor">Doctor</option>
+          <option value="labtechnician">Lab Technician</option>
+          <option value="pharmacist">Pharmacist</option>
+        </select>
+        <button class="btn mt-3" type="submit">Login</button>
+        <div id="errorMsg" class="muted mt-2" style="color:#fecaca"></div>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -63,24 +65,21 @@
         { username:'pharma1', password:'pass123', role:'pharmacist' }
       ];
     }
-
-    function redirectByRole(role) {
+    function redirectByRole(role){
       const routes = { admin:'admin.html', receptionist:'receptionist.html', doctor:'doctor.html', labtechnician:'labtechnician.html', pharmacist:'pharmacist.html' };
-      const target = routes[role];
-      if(target){ window.location.replace(target); }
+      const target = routes[role]; if(target){ window.location.replace(target); }
     }
-
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
+    document.getElementById('loginForm').addEventListener('submit', (e)=>{
       e.preventDefault();
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
-      const selectedRole = document.getElementById('role').value;
+      const role = document.getElementById('role').value;
       const users = getUsers();
-      const user = users.find(u => u.username === username && u.password === password && u.role === selectedRole);
-      if(user) {
+      const user = users.find(u => u.username === username && u.password === password && u.role === role);
+      if(user){
         sessionStorage.setItem('loggedInUser', JSON.stringify({ username:user.username, role:user.role }));
         redirectByRole(user.role);
-      } else {
+      }else{
         document.getElementById('errorMsg').textContent = 'Invalid credentials or role.';
       }
     });
